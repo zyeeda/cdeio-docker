@@ -1,0 +1,53 @@
+origin:
+  image: zyeeda/java:latest
+  dns:
+    - 223.5.5.5
+    - 8.8.8.8
+  volumes:
+    - ~/.m2/:/root/.m2
+    - ./origin:/opt/zyeeda/origin
+  working_dir: /opt/zyeeda/origin
+
+runtime:
+  image: zyeeda/java:latest
+  dns:
+    - 223.5.5.5
+    - 8.8.8.8
+  volumes:
+    - ~/.m2/:/root/.m2
+    - ./cdeio-runtime:/opt/zyeeda/cdeio-runtime
+  working_dir: /opt/zyeeda/cdeio-runtime
+
+colorvest:
+  image: zyeeda/coffee:1.8
+  dns:
+    - 223.5.5.5
+    - 8.8.8.8
+  volumes:
+    - ./colorvest:/opt/zyeeda/colorvest
+  working_dir: /opt/zyeeda/colorvest
+
+mysql:
+  image: mysql:5.6
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: mysecretpassword
+    MYSQL_DATABASE: cdeio-samples
+  volumes:
+    - ./mysql/etc/mysql:/etc/mysql
+
+server:
+  build: ./cdeio-samples
+  ports:
+    - "8080:8080"
+    - "8443:8443"
+  links:
+    - mysql
+  mem_limit: 1000000000
+  volumes:
+    - ./colorvest:/opt/zyeeda/colorvest
+    - ./cdeio-samples:/opt/zyeeda/cdeio-samples
+    - ~/.m2/:/root/.m2
+  working_dir: /opt/zyeeda/cdeio-samples
+

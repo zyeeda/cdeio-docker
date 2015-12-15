@@ -1,0 +1,16 @@
+[submodule "origin"]
+	path = origin
+	url = https://github.com/zyeeda/origin
+	branch = develop
+[submodule "cdeio-runtime"]
+	path = cdeio-runtime
+	url = https://github.com/zyeeda/cdeio-runtime
+	branch = develop
+[submodule "colorvest"]
+	path = colorvest
+	url = https://github.com/zyeeda/colorvest
+	branch = develop
+[submodule "cdeio-samples"]
+	path = cdeio-samples
+	url = https://github.com/zyeeda/cdeio-samples
+	branch = develop
